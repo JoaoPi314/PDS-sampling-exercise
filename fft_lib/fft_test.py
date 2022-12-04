@@ -35,7 +35,7 @@ class Test_fft_implementation(unittest.TestCase):
 
         self.assertEqual(type(o_data), int)
     
-    def test_fft_computes_half_of_evaluation_points_to_power_of_two_N(self):
+    def test_fft_computes_half_of_Wn_to_power_of_two_N(self):
         N = 16
         
         fft = FFT(N)
@@ -52,7 +52,7 @@ class Test_fft_implementation(unittest.TestCase):
         
         self.assertEqual(o_data, expected_data)       
 
-    def test_fft_computes_half_of_evaluation_points_to_non_power_of_two_N(self):
+    def test_fft_computes_half_of_Wn_to_non_power_of_two_N(self):
         N = 25
         fft = FFT(N)
         o_data = fft.get_Wn()
