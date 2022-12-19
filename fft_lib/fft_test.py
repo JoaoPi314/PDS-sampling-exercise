@@ -50,7 +50,7 @@ class Test_fft_implementation(unittest.TestCase):
                           -0.7071067811865477-0.7071067811865474j, 
                           -0.9238795325112868-0.38268343236508945j]
         
-        self.assertEqual(o_data, expected_data)       
+        self.assertEqual(o_data.tolist(), expected_data)       
 
     def test_fft_computes_half_of_Wn_to_non_power_of_two_N(self):
         N = 25
@@ -74,7 +74,7 @@ class Test_fft_implementation(unittest.TestCase):
                          -0.9238795325112864-0.3826834323650896j, 
                          -0.9807852804032301-0.19509032201612825j]
         
-        self.assertEqual(o_data, expected_data)
+        self.assertEqual(o_data.tolist(), expected_data)
 
     def test_size_one_fft_returns_number_in_argument(self):
         i_data = [4]

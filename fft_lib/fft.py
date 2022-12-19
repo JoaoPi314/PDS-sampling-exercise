@@ -28,19 +28,8 @@ class FFT():
         the signal of the first half.
         '''
         W = np.exp(-1j*2*np.pi/self.N)
-        self.Wn = [W**i for i in range(0, self.N//2)]
+        self.Wn = np.array([W**i for i in range(0, self.N//2)])
     
-    
-    def __two_elements_butterfly(self, array):
-        '''
-        This method will compute the result of a two elements butterfly
-        '''
-        output = np.zeros(2)
-        output[0] = array[0] + array[1]
-        output[1] = array[0] - array[1]
-
-        return list(output)
-
     def fft_calc(self, data):
         '''
         This method will compute the FFT of a given data array. If the data hasn't a power of
@@ -53,8 +42,8 @@ class FFT():
         
         # Division in even and odd terms
 
-        even_terms = data[::2]
-        odd_terms = data[1::2]
+        even_terms = np.array(data[::2])
+        odd_terms = np.array(data[1::2])
         # print(f'data: {data}')
         # print(f'Even terms: {even_terms}')
         # print(f'Odd terms: {odd_terms}')
