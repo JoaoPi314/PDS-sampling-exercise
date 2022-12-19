@@ -29,3 +29,54 @@ class FFT():
         '''
         W = np.exp(-1j*2*np.pi/self.N)
         self.Wn = [W**i for i in range(0, self.N//2)]
+    
+    
+    def __two_elements_butterfly(self, array):
+        '''
+        This method will compute the result of a two elements butterfly
+        '''
+        output = np.zeros(2)
+        output[0] = array[0] + array[1]
+        output[1] = array[0] - array[1]
+
+        return list(output)
+
+    def fft_calc(self, data):
+        '''
+        This method will compute the FFT of a given data array. If the data hasn't a power of
+        two size. The fft_calc will pad with zeros
+        '''
+        
+        # Stop point
+        if len(data) == 1:
+            return data
+        
+        # Division in even and odd terms
+
+        even_terms = data[::2]
+        odd_terms = data[1::2]
+        # print(f'data: {data}')
+        # print(f'Even terms: {even_terms}')
+        # print(f'Odd terms: {odd_terms}')
+        
+        # Computing FFT of the even and odd terms
+        fft_even = self.fft_calc(even_terms)
+        fft_odd = self.fft_calc(odd_terms)
+
+        
+        # Defining the Wn terms to the current level
+        step_size = 2*len(self.Wn) // len(data)
+        wn_terms = self.Wn[::step_size]        
+
+        # Computing the butterfly operations
+
+        fft_result = np.zeros(len(data), dtype='complex')
+
+        for i, wn in enumerate(wn_terms):
+            # print(i)
+            fft_result[i] = fft_even[i] + wn*fft_odd[i]
+            # Using the symmetry property
+            fft_result[(i + len(data)//2)] = fft_even[i] - wn*fft_odd[i]
+        
+
+        return fft_result.tolist()

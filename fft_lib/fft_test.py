@@ -75,3 +75,53 @@ class Test_fft_implementation(unittest.TestCase):
                          -0.9807852804032301-0.19509032201612825j]
         
         self.assertEqual(o_data, expected_data)
+
+    def test_size_one_fft_returns_number_in_argument(self):
+        i_data = [4]
+        
+        fft = FFT(1)
+
+        o_data = fft.fft_calc(i_data)
+
+        expected_data = [4]
+
+        self.assertEqual(o_data, expected_data)
+
+    def test_fft_of_size_two(self):
+
+        i_data = [3, 2]
+
+        fft = FFT(2)
+        o_data = fft.fft_calc(i_data)
+
+        expected_data = [5, 1]
+
+        self.assertEqual(o_data, expected_data)
+
+    def test_fft_of_size_four(self):
+
+        i_data = [1, -1, 1, -1]
+
+        fft = FFT(4)
+        o_data = fft.fft_calc(i_data)
+
+        expected_data = [0, 0, 4, 0]
+
+        self.assertEqual(o_data, expected_data)
+
+    def test_fft_of_size_eight(self):
+
+        i_data = [1, -1, 1, -1, 5, 6, 7, 8]
+
+        fft = FFT(8)
+        o_data = fft.fft_calc(i_data)
+
+        expected_data = [26 + 0j, -2.58578644 + 17.3137085j, -2. + 2j, 
+                         -5.41421356 + 5.3137085j, 2. + 0j,
+                        -5.41421356 - 5.3137085j, -2.-2j, 
+                        -2.58578644-17.3137085j]
+
+        print(o_data)
+        print(expected_data)
+
+        self.assertEqual(o_data, pytest.approx(expected_data))
